@@ -89,6 +89,16 @@ pub(crate) struct Variations {
     variations: [String; Normalization::ALL.len()],
 }
 
+impl std::fmt::Debug for Variations {
+    fn fmt(&self, f: &mut std::fmt::Formatter) -> std::fmt::Result {
+        for (i, variation) in self.variations.iter().enumerate() {
+            writeln!(f, "[variation {}]\n{variation}\n----------------\n", i + 1)?;
+        }
+
+        Ok(())
+    }
+}
+
 impl Variations {
     pub fn preferred(&self) -> &str {
         self.variations.last().unwrap()

@@ -636,6 +636,9 @@ fn parse_cargo_json(
                 if de.message.level == "error" {
                     entry.success = false;
                 }
+
+                eprintln!("[[cargo message]]\n{}\n--------\n", de.message.rendered);
+
                 let normalized = normalize::diagnostics(
                     &de.message.rendered,
                     Context {
