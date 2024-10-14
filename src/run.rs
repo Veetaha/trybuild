@@ -625,6 +625,9 @@ fn parse_cargo_json(
             // a short-lived bug.
             continue;
         }
+
+        eprintln!("[[cargo message]]\n{}\n--------\n", message);
+
         if let Ok(de) = serde_json::from_str::<CargoMessage>(message) {
             if de.message.level != "failure-note" {
                 let Some((name, test)) = path_map.get(&de.target.src_path) else {
@@ -636,8 +639,6 @@ fn parse_cargo_json(
                 if de.message.level == "error" {
                     entry.success = false;
                 }
-
-                eprintln!("[[cargo message]]\n{}\n--------\n", de.message.rendered);
 
                 let normalized = normalize::diagnostics(
                     &de.message.rendered,
