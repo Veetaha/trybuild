@@ -626,7 +626,7 @@ fn parse_cargo_json(
             continue;
         }
 
-        eprintln!("[[cargo message]]\n{}\n--------\n", message);
+        eprintln!("{}", message);
 
         if let Ok(de) = serde_json::from_str::<CargoMessage>(message) {
             if de.message.level != "failure-note" {
